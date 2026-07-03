@@ -1,120 +1,128 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+      <div className="ui one column center aligned page grid">
+        <div className="column twelve wide">
+          <img src="images/logo.svg" alt="logo" />
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
+      </div>
+      <div className="main container">
+        <div className="login" style={{ display: 'block' }}>
+          <div className="ui grid centered">
+            <form>
+              <div className="fields">
+                <div className="required field">
+                  <div className="ui icon input">
+                    <input type="text" name="username" placeholder="Username" />
+                    <i className="user icon"></i>
+                  </div>
+                </div>
+                <div className="required field">
+                  <div className="ui icon input">
+                    <input type="password" name="password" placeholder="Password" />
+                    <i className="lock icon"></i>
+                  </div>
+                </div>
+                <div className="field">
+                  <div className="ui icon input">
+                    <input type="submit" value="Login" />
+                    <i className="right chevron icon"></i>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+        <div className="casino" style={{ display: 'none' }}>
+          <div className="ui grid centered">
+            <div className="twelve wide column">
+              <div className="ui list">
 
-      <div className="ticks"></div>
+                {/* <!-- player item template --> */}
+                <div className="player item">
+                  <img className="ui avatar image" src="" alt="avatar" />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+                  <div className="content">
+                    <div className="header"><b className="name"></b></div>
+                    <div className="description event"></div>
+                  </div>
+                </div>
+                {/* <!-- end player item template --> */}
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+              </div>
+              <div className="logout ui left floated secondary button inverted">
+                <i className="left chevron icon"></i>Log Out
+              </div>
+            </div>
+            <div className="four wide column">
+              <div className="search ui small icon input ">
+                <input type="text" placeholder="Search Game" />
+                <i className="search icon"></i>
+              </div>
+            </div>
+          </div>
+          <div className="ui grid">
+            <div className="twelve wide column">
+              <h3 className="ui dividing header">Games</h3>
+
+              <div className="ui relaxed divided game items links">
+
+                {/* <!-- game item template --> */}
+                <div className="game item">
+                  <div className="ui small image">
+                    <img src="" alt="game-icon" />
+                  </div>
+                  <div className="content">
+                    <div className="header"><b className="name"></b></div>
+                    <div className="description">
+                    </div>
+                    <div className="extra">
+                      <div className="play ui right floated secondary button inverted">
+                        Play
+                        <i className="right chevron icon"></i>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                {/* <!-- end game item template --> */}
+
+              </div>
+            </div>
+            <div className="four wide column">
+              <h3 className="ui dividing header">Categories</h3>
+
+              <div className="ui selection animated list category items">
+
+                {/* <!-- category item template --> */}
+                <div className="category item">
+                  <div className="content">
+                    <div className="header"></div>
+                  </div>
+                </div>
+                {/* <!-- end category item template --> */}
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div className="ingame" style={{ display: 'none' }}>
+          <div className="ui grid centered">
+            <div className="three wide column">
+              <div className="ui right floated secondary button inverted"><i className="left chevron icon"></i>Back
+              </div>
+            </div>
+            <div className="ten wide column">
+              <div id="game-launch">
+              </div>
+            </div>
+            <div className="three wide column"></div>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
