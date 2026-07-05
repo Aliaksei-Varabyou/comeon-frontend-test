@@ -1,7 +1,7 @@
-import type { ApiResponseType, Category, Game, User } from "../types";
+import type { ApiResponseType, ApiUser, Category, Game, LoginResponse, LogoutResponse, User } from "../types";
 import { ApiError } from "./ApiError";
 
-const BASE_URL = import.meta.env.BASE_URL ?? 'http://localhost:3001/';
+const BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001/';
 
 async function client<T>(path: string, options: RequestInit): Promise<T> {
   const headers: HeadersInit = {
@@ -32,14 +32,14 @@ async function client<T>(path: string, options: RequestInit): Promise<T> {
 }
 
 export const api = {
-  login: (data: Pick<User, 'name' | 'password'>) => client<User>('login', {
-    method: 'POST',
-    body: JSON.stringify({
-      username: data.name,
-      password: data.password
-    })
-  }),
-  logout: (username: string) => client<void>('logout', {
+  login: async (data: ApiUser): Promise<User> => {
+    const response = await client<LoginResponse>('login', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+    return response?.player;
+  },
+  logout: (username: string) => client<LogoutResponse>('logout', {
     method: 'POST',
     body: JSON.stringify({username})
   }),

@@ -2,7 +2,6 @@ export interface User {
   "name": string,
   "avatar": string,
   "event": string,
-  "password": string
 }
 
 export interface ApiUser {
@@ -26,4 +25,19 @@ export interface Category {
 export interface ApiResponseType {
   error: string,
   code?: number
+}
+
+export interface LoginResponse {
+  status: 'success',
+  player: User
+}
+
+export interface LogoutResponse {
+  status: 'success',
+}
+
+export interface ApiErrorResponse {
+  status: 'fail',
+  error: string,
+  code?: number,
 }
