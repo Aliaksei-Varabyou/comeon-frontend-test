@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react"
-import type { SavedUser, User } from "../types"
+import type { SavedUser } from "../types"
 
 type LC_USER = SavedUser | null;
 

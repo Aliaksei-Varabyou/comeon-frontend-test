@@ -56,7 +56,7 @@ npm install -g json-server
 ```
 
 ```javascript
-json-server --watch mock/mock-data.json --port 3001 --middlewares mock/mock-api.js
+json-server --watch mock/mock-data.json --port 3001 --middlewares mock/mock-api.cjs
 ```
 
 Update: Use json-server version other than latest or alpha for example 0.17.3 or lower.

@@ -1,5 +1,5 @@
 import Logout from "../Auth/Logout";
-import Player from "../Game/Player";
+import Player from "./Player";
 import type { Category, Game } from "../types";
 import GameItem from "./GameItem";
 import CategoryItem from "./CategoryItem";

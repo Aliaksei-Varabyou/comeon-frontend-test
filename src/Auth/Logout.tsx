@@ -1,20 +1,27 @@
+import { useNavigate } from "react-router"
 import { api } from "../api/client"
 import { useAuth } from "../context/AuthContext"
 
 function Logout() {
+  const navigate = useNavigate()
   const {currentUser, setCurrentUser} = useAuth()
 
   async function handleLogoutClick() {
     if (currentUser) {
-      const {username} = currentUser
-      await api.logout(username)
-      setCurrentUser(null);
+      try {
+        const {username} = currentUser
+        await api.logout(username.trim())
+      } finally {
+        setCurrentUser(null);
+        navigate("/login");
+      }
     }
   }
 
   return (
     <div 
       className="logout ui left floated secondary button inverted"
+      role="button"
       onClick={handleLogoutClick}
     >
       <i className="left chevron icon"></i>Log Out

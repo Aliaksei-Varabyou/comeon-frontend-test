@@ -7,9 +7,7 @@ import { useNavigate } from "react-router";
 
 function Login () {
   const navigate = useNavigate()
-  const {currentUser} = useAuth()
-  if (currentUser) navigate("/")
-
+  
   const [name, setName] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
@@ -43,7 +41,7 @@ function Login () {
       if (player) {
         setCurrentUser({
           user: player,
-          username: name
+          username: name.trim()
         });
         clearForm();
         navigate("/")
@@ -60,7 +58,7 @@ function Login () {
   }
 
   return (
-    <div className="login" style={{ display: 'block' }}>
+    <div className="login">
       <div className="ui grid centered">
         <form onSubmit={handleSubmit}>
           <div className="fields">
