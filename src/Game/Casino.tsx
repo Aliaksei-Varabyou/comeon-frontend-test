@@ -1,7 +1,48 @@
+import { useEffect, useState } from "react";
 import Logout from "../Auth/Logout";
 import Player from "./Player";
+import type { Category, Game } from "../types";
+import { api } from "../api/client";
+import { ApiError } from "../api/ApiError";
+import GameItem from "./GameItem";
+import CategoryItem from "./CategoryItem";
 
 function Casino() {
+  const [games, setGames] = useState<Game[]>([])
+  const [categories, setCategories] = useState<Category[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function getData() {
+      setLoading(true)
+      setError(null)
+      try {
+        const response: Game[] | undefined = await api.getGames();
+        if (response) setGames(response);
+        const response2: Category[] | undefined = await api.getCategories();
+        if (response2) setCategories(response2);
+        setError('asfasfa asfasdfasdf asdf')
+      } catch (e) {
+        if (e instanceof ApiError) {
+          setError(e.message)
+        } else {
+          setError('Server error')
+        }
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getData()
+  }, [])
+
+  if (loading) {
+    return (
+      <div>...Loading</div>
+    )
+  }
+
   return (
     <div className="casino">
       <div className="ui grid centered">
@@ -18,6 +59,11 @@ function Casino() {
           </div>
         </div>
       </div>
+      {error && (
+        <div className="ui negative message" role="alert">
+          <p>{error}</p>
+        </div>
+      )}
       <div className="ui grid">
         <div className="twelve wide column">
           <h3 className="ui dividing header">Games</h3>
@@ -25,23 +71,12 @@ function Casino() {
           <div className="ui relaxed divided game items links">
 
             {/* <!-- game item template --> */}
-            <div className="game item">
-              <div className="ui small image">
-                <img src="" alt="game-icon" />
-              </div>
-              <div className="content">
-                <div className="header"><b className="name"></b></div>
-                <div className="description">
-                </div>
-                <div className="extra">
-                  <div className="play ui right floated secondary button inverted">
-                    Play
-                    <i className="right chevron icon"></i>
-                  </div>
-
-                </div>
-              </div>
-            </div>
+            {games.length === 0 && (
+              <>games list is empty</>
+            )}
+            {games.map((game: Game) => {
+              return <GameItem key={game.code} game={game} />
+            })}
             {/* <!-- end game item template --> */}
 
           </div>
@@ -52,11 +87,12 @@ function Casino() {
           <div className="ui selection animated list category items">
 
             {/* <!-- category item template --> */}
-            <div className="category item">
-              <div className="content">
-                <div className="header"></div>
-              </div>
-            </div>
+            {categories.length === 0 && (
+              <>---</>
+            )}
+            {categories.map((category: Category) => {
+              return <CategoryItem key={category.id} category={category} />
+            })}
             {/* <!-- end category item template --> */}
 
           </div>
