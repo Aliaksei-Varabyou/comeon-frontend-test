@@ -3,8 +3,13 @@ import { api } from "../api/client";
 import type { ApiUser } from "../types";
 import { ApiError } from "../api/ApiError";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router";
 
 function Login () {
+  const navigate = useNavigate()
+  const {currentUser} = useAuth()
+  if (currentUser) navigate("/")
+
   const [name, setName] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
@@ -41,8 +46,8 @@ function Login () {
           username: name
         });
         clearForm();
+        navigate("/")
       }
-      // ToDO: goto games list page
     } catch (e) {
       if (e instanceof ApiError) {
         setError(e.message)
