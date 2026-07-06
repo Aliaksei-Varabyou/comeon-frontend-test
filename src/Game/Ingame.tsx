@@ -34,7 +34,7 @@ function InGame() {
 
   return (
     <div className="ingame">
-      <div className="ui grid centered">
+      <div className="ui stackable grid centered">
         <div className="three wide column">
           <button
             type="button"
