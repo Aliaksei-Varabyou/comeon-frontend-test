@@ -2,12 +2,27 @@ import { useState, type ChangeEvent, type SubmitEvent } from "react";
 import { api } from "../api/client";
 import type { ApiUser } from "../types";
 import { ApiError } from "../api/ApiError";
+import { useAuth } from "../context/AuthContext";
 
 function Login () {
   const [name, setName] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
+  const {setCurrentUser} = useAuth()
+
+  function handleChangeName(e: ChangeEvent<HTMLInputElement>) {
+    setName(e.target.value)
+  }
+
+  function handleChangePassword(e: ChangeEvent<HTMLInputElement>) {
+    setPassword(e.target.value)
+  }
+
+  function clearForm() {
+    setName('')
+    setPassword('')
+  }
 
   async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -16,10 +31,17 @@ function Login () {
 
     try {
       const data: ApiUser = {
-        username: name,
+        username: name.trim(),
         password
       }
-      const response = await api.login(data);
+      const player = await api.login(data);
+      if (player) {
+        setCurrentUser({
+          user: player,
+          username: name
+        });
+        clearForm();
+      }
       // ToDO: goto games list page
     } catch (e) {
       if (e instanceof ApiError) {
@@ -43,7 +65,7 @@ function Login () {
                   type="text"
                   name="username"
                   value={name}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                  onChange={handleChangeName}
                   placeholder="Username"
                   required
                 />
@@ -56,7 +78,7 @@ function Login () {
                   type="password"
                   name="password"
                   value={password}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                  onChange={handleChangePassword}
                   placeholder="Password"
                   required
                 />

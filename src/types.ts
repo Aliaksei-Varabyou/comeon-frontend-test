@@ -9,6 +9,11 @@ export interface ApiUser {
   "password": string
 }
 
+export interface SavedUser {
+  "user": User,
+  "username": string
+}
+
 export interface Game {
   "name": string,
   "description": string,
