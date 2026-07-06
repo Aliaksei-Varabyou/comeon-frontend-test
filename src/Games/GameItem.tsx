@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import type { Game } from "../types"
 
 interface GameInterface {
@@ -5,6 +6,11 @@ interface GameInterface {
 }
 
 function GameItem({game}: GameInterface) {
+  const navigate = useNavigate();
+
+  function handlePlay() {
+    navigate(`/game/${game.code}`);
+  }
 
   return (
     <div className="game item">
@@ -17,10 +23,14 @@ function GameItem({game}: GameInterface) {
           {game.description}
         </div>
         <div className="extra">
-          <div className="play ui right floated secondary button inverted">
+          <button
+            type="button"
+            className="play ui right floated secondary button inverted"
+            onClick={handlePlay}
+          >
             Play
             <i className="right chevron icon"></i>
-          </div>
+          </button>
 
         </div>
       </div>

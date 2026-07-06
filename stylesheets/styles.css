@@ -15,3 +15,7 @@ body {
 .search {
     float: right;
 }
+
+#game-launch iframe {
+    max-width: 100%;
+}
