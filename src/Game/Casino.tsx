@@ -1,4 +1,5 @@
 import Logout from "../Auth/Logout";
+import Player from "./Player";
 
 function Casino() {
   return (
@@ -6,18 +7,7 @@ function Casino() {
       <div className="ui grid centered">
         <div className="twelve wide column">
           <div className="ui list">
-
-            {/* <!-- player item template --> */}
-            <div className="player item">
-              <img className="ui avatar image" src="" alt="avatar" />
-
-              <div className="content">
-                <div className="header"><b className="name"></b></div>
-                <div className="description event"></div>
-              </div>
-            </div>
-            {/* <!-- end player item template --> */}
-
+            <Player />
           </div>
           <Logout />
         </div>
