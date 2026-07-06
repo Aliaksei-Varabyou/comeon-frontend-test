@@ -1,7 +1,8 @@
+import Logout from "../Auth/Logout";
 
 function Casino() {
   return (
-    <div className="casino" style={{ display: 'none' }}>
+    <div className="casino">
       <div className="ui grid centered">
         <div className="twelve wide column">
           <div className="ui list">
@@ -18,9 +19,7 @@ function Casino() {
             {/* <!-- end player item template --> */}
 
           </div>
-          <div className="logout ui left floated secondary button inverted">
-            <i className="left chevron icon"></i>Log Out
-          </div>
+          <Logout />
         </div>
         <div className="four wide column">
           <div className="search ui small icon input ">

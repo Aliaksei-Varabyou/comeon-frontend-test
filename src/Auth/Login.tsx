@@ -96,12 +96,18 @@ function Login () {
                 <i className="right chevron icon"></i>
               </div>
             </div>
-
-            {error && <p role="alert" style={{color: 'red'}}>{error}</p>}
-
           </div>
         </form>
       </div>
+
+      {error && (
+        <>
+          <div className="ui divider" />
+          <div className="ui negative message" role="alert">
+            <p>{error}</p>
+          </div>
+        </>
+      )}
     </div>
   )
 }
