@@ -1,7 +1,7 @@
 import { Navigate, Route, Routes } from "react-router";
 import { ProtectedRoute } from "./ProtectedRoute";
 import Login from "../Auth/Login";
-import Casino from "../Game/Casino";
+import Casino from "../Games/Casino";
 import InGame from "../Game/Ingame";
 
 export function AppRouter() {

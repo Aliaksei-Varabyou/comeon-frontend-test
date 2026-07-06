@@ -1,41 +1,21 @@
-import { useEffect, useState } from "react";
 import Logout from "../Auth/Logout";
-import Player from "./Player";
+import Player from "../Game/Player";
 import type { Category, Game } from "../types";
-import { api } from "../api/client";
-import { ApiError } from "../api/ApiError";
 import GameItem from "./GameItem";
 import CategoryItem from "./CategoryItem";
+import { useCasino } from "./useCasino";
 
 function Casino() {
-  const [games, setGames] = useState<Game[]>([])
-  const [categories, setCategories] = useState<Category[]>([])
-  const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    async function getData() {
-      setLoading(true)
-      setError(null)
-      try {
-        const response: Game[] | undefined = await api.getGames();
-        if (response) setGames(response);
-        const response2: Category[] | undefined = await api.getCategories();
-        if (response2) setCategories(response2);
-        setError('asfasfa asfasdfasdf asdf')
-      } catch (e) {
-        if (e instanceof ApiError) {
-          setError(e.message)
-        } else {
-          setError('Server error')
-        }
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    getData()
-  }, [])
+  const {
+    games: filteredGames,
+    categories,
+    loading,
+    error,
+    search,
+    currentCategory,
+    onSearchChange,
+    onCategoryClick,
+  } = useCasino();
 
   if (loading) {
     return (
@@ -54,7 +34,12 @@ function Casino() {
         </div>
         <div className="four wide column">
           <div className="search ui small icon input ">
-            <input type="text" placeholder="Search Game" />
+            <input
+              type="text"
+              placeholder="Search Game"
+              value={search}
+              onChange={onSearchChange}
+            />
             <i className="search icon"></i>
           </div>
         </div>
@@ -71,10 +56,10 @@ function Casino() {
           <div className="ui relaxed divided game items links">
 
             {/* <!-- game item template --> */}
-            {games.length === 0 && (
+            {filteredGames.length === 0 && (
               <>games list is empty</>
             )}
-            {games.map((game: Game) => {
+            {filteredGames.map((game: Game) => {
               return <GameItem key={game.code} game={game} />
             })}
             {/* <!-- end game item template --> */}
@@ -91,7 +76,14 @@ function Casino() {
               <>---</>
             )}
             {categories.map((category: Category) => {
-              return <CategoryItem key={category.id} category={category} />
+              return (
+                <CategoryItem
+                  key={category.id}
+                  category={category}
+                  active={currentCategory?.id === category.id}
+                  onClick={() => onCategoryClick(category.id)}
+                />
+              )
             })}
             {/* <!-- end category item template --> */}
 
